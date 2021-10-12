@@ -13,9 +13,13 @@ app.listen(PORT, () => {
   console.log(`App Listen On Port ${PORT}.`);
 });
 
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true }, () => {
-  console.log("Connected to db successfully");
-});
+mongoose.connect(
+  "mongodb+srv://simon123:simon123@cluster0.j0you.mongodb.net/ecommerce?retryWrites=true&w=majority",
+  { useNewUrlParser: true },
+  () => {
+    console.log("Connected to db successfully");
+  }
+);
 
 app.use(express.json());
 app.use(cors());
