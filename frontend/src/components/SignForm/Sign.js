@@ -7,6 +7,7 @@ import { Icon } from "./icon";
 import { useDispatch, useSelector } from "react-redux";
 import { auth, switchSignUp } from "../../redux/actions";
 import { useHistory } from "react-router";
+import axios from "axios";
 
 const initialState = { first_name: "", last_name: "", email: "", password: "" };
 
@@ -19,17 +20,15 @@ const Sign = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const API = axios.create({
+    baseURL: "https://firstecommerce.herokuapp.com",
+  });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("https://firstecommerce.herokuapp.com/signup", {
-      method: "POST",
-      body: JSON.stringify({ form }),
-    });
-
-    const data = await res.json();
-
-    console.log(res, data);
+    const res = await API.post("/signup", form);
+    console.log(res);
   };
 
   const handleChange = (e) => {
