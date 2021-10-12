@@ -19,7 +19,18 @@ const Sign = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleSubmit = () => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const res = await fetch("https://firstecommerce.herokuapp.com/signup", {
+      method: "POST",
+      body: JSON.stringify({ form }),
+    });
+
+    const data = await res.json();
+
+    console.log(res, data);
+  };
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -93,15 +104,9 @@ const Sign = () => {
 
         <Grid container spacing={1} className={classes.actionsContainer}>
           <Grid item xs={12}>
-            {isSignup ? (
-              <Button fullWidth variant="contained" color="primary">
-                Sign Up
-              </Button>
-            ) : (
-              <Button fullWidth variant="contained" color="primary">
-                Sign In
-              </Button>
-            )}
+            <Button type="submit" fullWidth variant="contained" color="primary">
+              {isSignup ? "Sign Up" : "Sign In"}
+            </Button>
           </Grid>
 
           <Grid item xs={12}>

@@ -1,5 +1,5 @@
 import React from "react";
-import Home from "./components/Home.js/Home";
+import Home from "./components/Home/Home";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Auth from "./components/Auth/Auth";
 import Navbar from "./components/Navbar/Navbar";
