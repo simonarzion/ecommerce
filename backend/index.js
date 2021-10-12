@@ -18,6 +18,10 @@ mongoose.connect(process.env.MONGO_URI, () => {
 
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("Hello");
+});
+
 app.post("/signup", async (req, res) => {
   const { email, password, first_name, last_name } = req.body;
   try {
