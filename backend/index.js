@@ -15,12 +15,7 @@ app.listen(PORT, () => {
 });
 
 mongoose
-  .connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true,
-  })
+  .connect(MONGO_URI)
   .then(() => {
     console.log("Connected to db");
   })
