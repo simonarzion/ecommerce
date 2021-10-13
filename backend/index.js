@@ -14,8 +14,10 @@ app.listen(PORT, () => {
 });
 
 mongoose
-  .connect(process.env.MONGO_URI, {
+  .connect(process.env.MONGO_URL_TEST, {
     useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
     useUnifiedTopology: true,
   })
   .then(() => {
