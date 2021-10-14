@@ -5,9 +5,9 @@ import GoogleLogin from "react-google-login";
 import useStyles from "./styles";
 import { Icon } from "./icon";
 import { useDispatch, useSelector } from "react-redux";
-import { auth, switchSignUp } from "../../redux/actions";
+import { signIn, signUp, switchSignUp } from "../../redux/actions";
 import { useHistory } from "react-router";
-import axios from "axios";
+import { actionTypes } from "../../redux/constants";
 
 const initialState = { first_name: "", last_name: "", email: "", password: "" };
 
@@ -20,15 +20,14 @@ const Sign = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const API = axios.create({
-    baseURL: "https://firstecommerce.herokuapp.com",
-  });
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await API.post("/signup", form);
-    console.log(res);
+    if (isSignup) {
+      dispatch(signUp(form, history));
+    } else {
+      dispatch(signIn(form, history));
+    }
   };
 
   const handleChange = (e) => {
@@ -45,7 +44,7 @@ const Sign = () => {
 
   const googleSuccess = (response) => {
     console.log(response);
-    dispatch(auth(response));
+    dispatch({ type: actionTypes.AUTH, payload: response });
     history.push("/");
   };
 

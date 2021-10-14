@@ -1,4 +1,6 @@
+import axios from "axios";
 import { actionTypes } from "../constants";
+const url = "https://firstecommerce.herokuapp.com";
 
 export const logout = () => {
   return {
@@ -6,11 +8,23 @@ export const logout = () => {
   };
 };
 
-export const auth = (data) => {
-  return {
-    type: actionTypes.AUTH,
-    payload: data,
-  };
+export const signIn = (formData, router) => (dispatch) => {
+  const { data } = axios.post(`${url}/user/signin`, formData);
+
+  dispatch({ type: actionTypes.AUTH, payload: data });
+  router.push("/");
+};
+
+export const signUp = (formData, router) => async (dispatch) => {
+  const data = await fetch(`${url}/user/signup`, {
+    method: "POST",
+    body: JSON.stringify({ formData }),
+  });
+  const res = await data.json();
+  console.log(res);
+
+  // dispatch({ type: actionTypes.AUTH, payload: data });
+  router.push("/");
 };
 
 export const switchSignUp = (data) => {
