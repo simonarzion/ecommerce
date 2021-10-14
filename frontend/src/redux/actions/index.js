@@ -1,6 +1,6 @@
 import axios from "axios";
 import { actionTypes } from "../constants";
-const url = "https://firstecommerce.herokuapp.com";
+const url = "http://localhost:3001";
 
 export const logout = () => {
   return {
