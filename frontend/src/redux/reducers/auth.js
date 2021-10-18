@@ -8,9 +8,10 @@ const authReducer = (state = {}, action) => {
       return { ...state, data: null };
 
     case actionTypes.AUTH:
-      localStorage.setItem("profile", JSON.stringify({ ...action?.payload }));
+      console.log(action);
+      localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
 
-      return { ...state, data: action.payload };
+      return { ...state, data: action.data };
     default:
       return state;
   }

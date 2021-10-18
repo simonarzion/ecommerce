@@ -1,6 +1,7 @@
 import axios from "axios";
 import { actionTypes } from "../constants";
-const url = "http://localhost:3001";
+
+const API = axios.create({ baseURL: "http://localhost:3001" });
 
 export const logout = () => {
   return {
@@ -9,21 +10,16 @@ export const logout = () => {
 };
 
 export const signIn = (formData, router) => (dispatch) => {
-  const { data } = axios.post(`${url}/user/signin`, formData);
-
-  dispatch({ type: actionTypes.AUTH, payload: data });
-  router.push("/");
+  // const { data } = axios.post(`${url}/user/signin`, formData);
+  // dispatch({ type: actionTypes.AUTH, payload: data });
+  // router.push("/");
 };
 
-export const signUp = (formData, router) => async (dispatch) => {
-  const data = await fetch(`${url}/user/signup`, {
-    method: "POST",
-    body: JSON.stringify({ formData }),
-  });
-  const res = await data.json();
-  console.log(res);
+export const signUp = (form, router) => (dispatch) => {
+  API.post("/user/signup", form)
+    .then((data) => dispatch({ type: actionTypes.AUTH, data: data.data }))
+    .then((res) => console.log(res.data));
 
-  // dispatch({ type: actionTypes.AUTH, payload: data });
   router.push("/");
 };
 

@@ -20,7 +20,7 @@ const Sign = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (isSignup) {
@@ -42,15 +42,18 @@ const Sign = () => {
     setShowPassword(!showPassword);
   };
 
-  const googleSuccess = (response) => {
-    console.log(response);
-    dispatch({ type: actionTypes.AUTH, payload: response });
+  const googleSuccess = (res) => {
+    const user = res.profileObj;
+    const token = res.tokenId;
+
+    dispatch({ type: actionTypes.AUTH, data: { user, token } });
     history.push("/");
   };
 
   const googleFailure = (response) => {
     console.log(response);
   };
+
   return (
     <form onSubmit={handleSubmit} className={classes.form}>
       <Container maxWidth="sm">
